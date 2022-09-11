@@ -43,14 +43,14 @@ class YoutubeSpider(scrapy.Spider):
             if compact_video := suggest.get("compactVideoRenderer",None):
                 if (videoId:=compact_video.get('videoId')) is not None:
                     print(videoId)
-                    yield from self._get_subtitles(videoId,current_video_id)
+                    # yield from self._get_subtitles(videoId,current_video_id)
                     # yield  JsonRequest(url=self.start_urls[0],callback=self.parse, data=self.get_payload(videoId))
 
             elif not (suggest.get("continuationItemRenderer") is None):
                 command_token = suggest['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
                 payload = self.get_payload(current_video_id)
                 payload['continuation'] = command_token['token']
-                # yield  JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
+                yield  JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
 
     def _get_next_suggest_videos(self, response):
         print("started")
