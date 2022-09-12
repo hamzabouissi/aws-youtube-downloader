@@ -65,25 +65,25 @@ CLOSESPIDER_ERRORCOUNT = 1
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'crawler.pipelines.SubtitlePipeline': 300,
-   # 'crawler.pipelines.S3Pipeline': 1,
-   # 'crawler.pipelines.MongoPipeline': 2,
-   # 'crawler.pipelines.ElasticSearchPipeline': 3,
+   'crawler.pipelines.S3Pipeline': 1,
+   'crawler.pipelines.MongoPipeline': 2,
+   'crawler.pipelines.ElasticSearchPipeline': 3,
    
    # 'scrapy.pipelines.files.FilesPipeline': 1
 
 }
+DEPTH_LIMIT = 5
+REACTOR_THREADPOOL_MAXSIZE = 20
 
 AWS_ACCESS_KEY_ID = 'AKIAQJ57FYCB5UT6G74A'
 AWS_SECRET_ACCESS_KEY = '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'
 SUBTITLES_BUCKET_NAME = 'youtubecrawledsubtitles'
 # MONGO_URI = 'mongodb://admin:never_mind@ec2-54-82-177-165.compute-1.amazonaws.com:27017/?authSource=admin'
-MONGO_URI = "mongodb://root:example@localhost:27017/?authSource=admin"
+MONGO_URI = "mongodb://crawler:youtube_videos@localhost:27017/?authSource=admin"
 MONGO_DATABASE = "YoutubeVideos"
-
 ELASTIC_URL = "35.171.163.235"
 ELASTIC_HTTP_CERT = "/home/forswearbeetle/Projects/youtube-captions-downloader/http_cert.crt"
 ELASTIC_BASIC_AUTH = ('elastic', 'wReKOgoKIc_hC6D=JElT')
-
 # FEEDS = {
 #     's3://youtubecrawledsubtitles/%(name)s/data.json': {
 #         'format': 'json',

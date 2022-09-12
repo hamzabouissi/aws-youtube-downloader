@@ -1,0 +1,66 @@
+{
+    "status": "ok",
+    "datas": {
+        "crawler": {
+            "youtube": {
+                "2fdd0b34321f11ed870338deadd9e739": {
+                    "log_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/2fdd0b34321f11ed870338deadd9e739.log",
+                    "json_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/2fdd0b34321f11ed870338deadd9e739.json",
+                    "json_url": "http://127.0.0.1:6800/logs/crawler/youtube/2fdd0b34321f11ed870338deadd9e739.json",
+                    "size": 4162,
+                    "position": 4162,
+                    "status": "ok",
+                    "pages": 2,
+                    "items": 0,
+                    "first_log_time": "2022-09-11 23:15:07",
+                    "latest_log_time": "2022-09-11 23:15:09",
+                    "runtime": "0:00:02",
+                    "shutdown_reason": "N/A",
+                    "finish_reason": "closespider_pagecount",
+                    "last_update_time": "2022-09-12 12:30:07"
+                },
+                "834d17c8321f11ed870338deadd9e739": {
+                    "log_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.log",
+                    "json_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.json",
+                    "json_url": "http://127.0.0.1:6800/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.json",
+                    "size": 4164,
+                    "position": 4164,
+                    "status": "ok",
+                    "pages": 2,
+                    "items": 0,
+                    "first_log_time": "2022-09-11 23:17:27",
+                    "latest_log_time": "2022-09-11 23:17:28",
+                    "runtime": "0:00:01",
+                    "shutdown_reason": "N/A",
+                    "finish_reason": "closespider_pagecount",
+                    "last_update_time": "2022-09-12 12:30:07"
+                }
+            }
+        }
+    },
+    "settings_py": "/home/forswearbeetle/Projects/youtube-captions-downloader/env/lib/python3.10/site-packages/logparser/settings.py",
+    "settings": {
+        "scrapyd_server": "0.0.0.0:6800",
+        "scrapyd_logs_dir": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs",
+        "parse_round_interval": 10,
+        "enable_telnet": true,
+        "override_telnet_console_host": "",
+        "log_encoding": "utf-8",
+        "log_extensions": [
+            ".log",
+            ".txt"
+        ],
+        "log_head_lines": 100,
+        "log_tail_lines": 200,
+        "log_categories_limit": 10,
+        "jobs_to_keep": 100,
+        "chunk_size": 10000000,
+        "delete_existing_json_files_at_startup": false,
+        "keep_data_in_memory": false,
+        "verbose": false,
+        "main_pid": 0
+    },
+    "last_update_timestamp": 1662993310,
+    "last_update_time": "2022-09-12 15:35:10",
+    "logparser_version": "0.8.2"
+}

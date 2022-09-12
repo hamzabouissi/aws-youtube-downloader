@@ -1,5 +1,6 @@
+from gc import callbacks
 import json
-from time import sleep
+from time import sleep, time
 import scrapy
 from scrapy.http import JsonRequest,Request
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -31,29 +32,29 @@ class YoutubeSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        video_id = "rE_SxmltgmA"
-        for url in self.start_urls:
-            yield JsonRequest(url=url, data=self.get_payload(video_id))
+        yield JsonRequest(url=self.start_urls[0], data=self.get_payload(self.video_id))
 
     def parse(self, response):
         data = response.json()
         suggestions = data['contents']['twoColumnWatchNextResults']['secondaryResults']['secondaryResults']['results']
         current_video_id = data['currentVideoEndpoint']['watchEndpoint']['videoId']
+        videos=[]
         for suggest in suggestions:
             if compact_video := suggest.get("compactVideoRenderer",None):
                 if (videoId:=compact_video.get('videoId')) is not None:
-                    print(videoId)
+                    videos.append(videoId)
                     yield from self._get_subtitles(videoId,current_video_id)
-                    # yield  JsonRequest(url=self.start_urls[0],callback=self.parse, data=self.get_payload(videoId))
-
-            elif not (suggest.get("continuationItemRenderer") is None):
-                command_token = suggest['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
-                payload = self.get_payload(current_video_id)
-                payload['continuation'] = command_token['token']
-                # yield  JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
+                    
+        for video_id in videos:
+            print("crawling sub videos")
+            yield JsonRequest(url=self.start_urls[0],callback=self.parse, data=self.get_payload(video_id))
+            # elif not (suggest.get("continuationItemRenderer") is None):
+            #     command_token = suggest['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
+            #     payload = self.get_payload(current_video_id)
+            #     payload['continuation'] = command_token['token']
+                # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True)
 
     def _get_next_suggest_videos(self, response):
-        print("started")
         request = json.loads(response.request.body.decode("utf-8"))
         current_video_id = request['videoId']
         data = response.json()
@@ -61,20 +62,19 @@ class YoutubeSpider(scrapy.Spider):
         
         for video in videos:
             if compact_video := video.get("compactVideoRenderer",None):
-                if not (compact_video.get('videoId') is None):
-                    pass
-                    # yield from self._get_subtitles(compact_video.get('videoId'),current_video_id)
+                if (videoId:=compact_video.get('videoId')) is not None:
+                    yield from self._get_subtitles(videoId,current_video_id)
             
             elif not (video.get("continuationItemRenderer") is None):
                 command_token = video['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
                 payload = self.get_payload(current_video_id)
                 payload['continuation'] = command_token['token']
-                print(command_token['token'])
-                yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
+                # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
 
 
 
     def _get_subtitles(self,videoId,parent_video_id):
+        # print(video)
         try:
             subtitles = YouTubeTranscriptApi.list_transcripts(videoId)
             for lang in self.desirable_languages:
@@ -92,3 +92,4 @@ class YoutubeSpider(scrapy.Spider):
                 
         except Exception as e:
             print(e)
+

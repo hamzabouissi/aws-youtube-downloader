@@ -13,8 +13,7 @@ from scrapy.exporters import JsonItemExporter
 import pymongo
 from crawler.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SUBTITLES_BUCKET_NAME
 from elasticsearch import Elasticsearch
-from motor import motor_asyncio,motor_tornado
-from scrapy.utils.defer import maybe_deferred_to_future
+from elasticsearch.helpers import bulk
 
 
 
@@ -102,10 +101,11 @@ class MongoPipeline:
     def close_spider(self, spider):
         self.client.close()
 
+    
     def process_item(self, item, spider):
         
 
-        response = self.db[item['video_id']].insert_one({
+        self.db[item['video_id']].insert_one({
             "video_id": item['video_id'],
             "parent_video_id": item['parent_video_id'],
             "subtitles":f"https://{SUBTITLES_BUCKET_NAME}.s3.amazonaws.com/{item['video_id']}"
@@ -143,13 +143,23 @@ class ElasticSearchPipeline:
     def close_spider(self, spider):
         self.client.close()
 
-    
-    def process_item(self, item, spider):
-        video_id = f"{item['video_id']}_{item['language']}".lower()
-        data = item['text']
-        index = self.client.indices.exists(index=video_id)
-        if not index:
-            self.client.indices.create(index=video_id)    
+
+    def gendata(self,index_id, videoId, data):
         for doc in data:
-            self.client.create(index=video_id,id=uuid.uuid4(),document=doc,refresh=True)
+            doc['videoId'] = videoId
+            yield {
+                "_index":index_id,
+                "_id":uuid.uuid4(),
+                "doc":doc,
+                "refresh":True
+            }
+
+    
+    async def process_item(self, item, spider):
+        index_id = f"video_{item['language']}".lower()
+        data = item['text']
+        index = self.client.indices.exists(index=index_id)
+        if not index:
+            self.client.indices.create(index=index_id)    
+        bulk(self.client, self.gendata(index_id, item['video_id'], data))
         return item

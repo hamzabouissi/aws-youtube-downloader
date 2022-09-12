@@ -1,0 +1,101 @@
+{
+    "log_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.log",
+    "json_path": "/home/forswearbeetle/Projects/youtube-captions-downloader/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.json",
+    "json_url": "http://127.0.0.1:6800/logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.json",
+    "size": 4164,
+    "position": 4164,
+    "status": "ok",
+    "_head": "2022-09-11 23:17:27 [scrapy.utils.log] INFO: Scrapy 2.6.2 started (bot: crawler)\n2022-09-11 23:17:27 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 2.0.1, Twisted 22.4.0, Python 3.10.5 (main, Jun  6 2022, 18:49:26) [GCC 12.1.0], pyOpenSSL 22.0.0 (OpenSSL 3.0.5 5 Jul 2022), cryptography 37.0.4, Platform Linux-5.10.120-1-MANJARO-x86_64-with-glibc2.35\n2022-09-11 23:17:27 [scrapy.crawler] INFO: Overridden settings:\n{'BOT_NAME': 'crawler',\n 'CLOSESPIDER_ERRORCOUNT': 1,\n 'CLOSESPIDER_PAGECOUNT': 2,\n 'EDITOR': '/usr/bin/nano',\n 'LOG_FILE': 'logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.log',\n 'NEWSPIDER_MODULE': 'crawler.spiders',\n 'SPIDER_MODULES': ['crawler.spiders'],\n 'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, '\n               'like Gecko) Chrome/102.0.5005.61 Safari/537.36'}\n2022-09-11 23:17:27 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet Password: 314ee78f35cebf2a\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled extensions:\n['scrapy.extensions.corestats.CoreStats',\n 'scrapy.extensions.telnet.TelnetConsole',\n 'scrapy.extensions.memusage.MemoryUsage',\n 'scrapy.extensions.closespider.CloseSpider',\n 'scrapy.extensions.logstats.LogStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled downloader middlewares:\n['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',\n 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',\n 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',\n 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',\n 'scrapy.downloadermiddlewares.retry.RetryMiddleware',\n 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',\n 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',\n 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',\n 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',\n 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',\n 'scrapy.downloadermiddlewares.stats.DownloaderStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled spider middlewares:\n['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',\n 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',\n 'scrapy.spidermiddlewares.referer.RefererMiddleware',\n 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',\n 'scrapy.spidermiddlewares.depth.DepthMiddleware']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled item pipelines:\n[]\n2022-09-11 23:17:27 [scrapy.core.engine] INFO: Spider opened\n2022-09-11 23:17:27 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: None)\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: https://www.youtube.com/youtubei/v1/next)\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Closing spider (closespider_pagecount)\n2022-09-11 23:17:28 [scrapy.statscollectors] INFO: Dumping Scrapy stats:\n{'downloader/request_bytes': 2421,\n 'downloader/request_count': 2,\n 'downloader/request_method_count/POST': 2,\n 'downloader/response_bytes': 64582,\n 'downloader/response_count': 2,\n 'downloader/response_status_count/200': 2,\n 'elapsed_time_seconds': 1.504566,\n 'finish_reason': 'closespider_pagecount',\n 'finish_time': datetime.datetime(2022, 9, 11, 22, 17, 28, 767273),\n 'httpcompression/response_bytes': 925728,\n 'httpcompression/response_count': 2,\n 'log_count/DEBUG': 3,\n 'log_count/INFO': 10,\n 'memusage/max': 66080768,\n 'memusage/startup': 66080768,\n 'request_depth_max': 2,\n 'response_received_count': 2,\n 'scheduler/dequeued': 2,\n 'scheduler/dequeued/memory': 2,\n 'scheduler/enqueued': 3,\n 'scheduler/enqueued/memory': 3,\n 'start_time': datetime.datetime(2022, 9, 11, 22, 17, 27, 262707)}\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Spider closed (closespider_pagecount)\n",
+    "head": "2022-09-11 23:17:27 [scrapy.utils.log] INFO: Scrapy 2.6.2 started (bot: crawler)\n2022-09-11 23:17:27 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 2.0.1, Twisted 22.4.0, Python 3.10.5 (main, Jun  6 2022, 18:49:26) [GCC 12.1.0], pyOpenSSL 22.0.0 (OpenSSL 3.0.5 5 Jul 2022), cryptography 37.0.4, Platform Linux-5.10.120-1-MANJARO-x86_64-with-glibc2.35\n2022-09-11 23:17:27 [scrapy.crawler] INFO: Overridden settings:\n{'BOT_NAME': 'crawler',\n 'CLOSESPIDER_ERRORCOUNT': 1,\n 'CLOSESPIDER_PAGECOUNT': 2,\n 'EDITOR': '/usr/bin/nano',\n 'LOG_FILE': 'logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.log',\n 'NEWSPIDER_MODULE': 'crawler.spiders',\n 'SPIDER_MODULES': ['crawler.spiders'],\n 'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, '\n               'like Gecko) Chrome/102.0.5005.61 Safari/537.36'}\n2022-09-11 23:17:27 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet Password: 314ee78f35cebf2a\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled extensions:\n['scrapy.extensions.corestats.CoreStats',\n 'scrapy.extensions.telnet.TelnetConsole',\n 'scrapy.extensions.memusage.MemoryUsage',\n 'scrapy.extensions.closespider.CloseSpider',\n 'scrapy.extensions.logstats.LogStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled downloader middlewares:\n['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',\n 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',\n 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',\n 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',\n 'scrapy.downloadermiddlewares.retry.RetryMiddleware',\n 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',\n 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',\n 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',\n 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',\n 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',\n 'scrapy.downloadermiddlewares.stats.DownloaderStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled spider middlewares:\n['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',\n 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',\n 'scrapy.spidermiddlewares.referer.RefererMiddleware',\n 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',\n 'scrapy.spidermiddlewares.depth.DepthMiddleware']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled item pipelines:\n[]\n2022-09-11 23:17:27 [scrapy.core.engine] INFO: Spider opened\n2022-09-11 23:17:27 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: None)\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: https://www.youtube.com/youtubei/v1/next)\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Closing spider (closespider_pagecount)\n2022-09-11 23:17:28 [scrapy.statscollectors] INFO: Dumping Scrapy stats:\n{'downloader/request_bytes': 2421,\n 'downloader/request_count': 2,\n 'downloader/request_method_count/POST': 2,\n 'downloader/response_bytes': 64582,\n 'downloader/response_count': 2,\n 'downloader/response_status_count/200': 2,\n 'elapsed_time_seconds': 1.504566,\n 'finish_reason': 'closespider_pagecount',\n 'finish_time': datetime.datetime(2022, 9, 11, 22, 17, 28, 767273),\n 'httpcompression/response_bytes': 925728,\n 'httpcompression/response_count': 2,\n 'log_count/DEBUG': 3,\n 'log_count/INFO': 10,\n 'memusage/max': 66080768,\n 'memusage/startup': 66080768,\n 'request_depth_max': 2,\n 'response_received_count': 2,\n 'scheduler/dequeued': 2,\n 'scheduler/dequeued/memory': 2,\n 'scheduler/enqueued': 3,\n 'scheduler/enqueued/memory': 3,\n 'start_time': datetime.datetime(2022, 9, 11, 22, 17, 27, 262707)}\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Spider closed (closespider_pagecount)\n",
+    "tail": "2022-09-11 23:17:27 [scrapy.utils.log] INFO: Scrapy 2.6.2 started (bot: crawler)\n2022-09-11 23:17:27 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 2.0.1, Twisted 22.4.0, Python 3.10.5 (main, Jun  6 2022, 18:49:26) [GCC 12.1.0], pyOpenSSL 22.0.0 (OpenSSL 3.0.5 5 Jul 2022), cryptography 37.0.4, Platform Linux-5.10.120-1-MANJARO-x86_64-with-glibc2.35\n2022-09-11 23:17:27 [scrapy.crawler] INFO: Overridden settings:\n{'BOT_NAME': 'crawler',\n 'CLOSESPIDER_ERRORCOUNT': 1,\n 'CLOSESPIDER_PAGECOUNT': 2,\n 'EDITOR': '/usr/bin/nano',\n 'LOG_FILE': 'logs/crawler/youtube/834d17c8321f11ed870338deadd9e739.log',\n 'NEWSPIDER_MODULE': 'crawler.spiders',\n 'SPIDER_MODULES': ['crawler.spiders'],\n 'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, '\n               'like Gecko) Chrome/102.0.5005.61 Safari/537.36'}\n2022-09-11 23:17:27 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet Password: 314ee78f35cebf2a\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled extensions:\n['scrapy.extensions.corestats.CoreStats',\n 'scrapy.extensions.telnet.TelnetConsole',\n 'scrapy.extensions.memusage.MemoryUsage',\n 'scrapy.extensions.closespider.CloseSpider',\n 'scrapy.extensions.logstats.LogStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled downloader middlewares:\n['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',\n 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',\n 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',\n 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',\n 'scrapy.downloadermiddlewares.retry.RetryMiddleware',\n 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',\n 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',\n 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',\n 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',\n 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',\n 'scrapy.downloadermiddlewares.stats.DownloaderStats']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled spider middlewares:\n['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',\n 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',\n 'scrapy.spidermiddlewares.referer.RefererMiddleware',\n 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',\n 'scrapy.spidermiddlewares.depth.DepthMiddleware']\n2022-09-11 23:17:27 [scrapy.middleware] INFO: Enabled item pipelines:\n[]\n2022-09-11 23:17:27 [scrapy.core.engine] INFO: Spider opened\n2022-09-11 23:17:27 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)\n2022-09-11 23:17:27 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: None)\n2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: https://www.youtube.com/youtubei/v1/next)\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Closing spider (closespider_pagecount)\n2022-09-11 23:17:28 [scrapy.statscollectors] INFO: Dumping Scrapy stats:\n{'downloader/request_bytes': 2421,\n 'downloader/request_count': 2,\n 'downloader/request_method_count/POST': 2,\n 'downloader/response_bytes': 64582,\n 'downloader/response_count': 2,\n 'downloader/response_status_count/200': 2,\n 'elapsed_time_seconds': 1.504566,\n 'finish_reason': 'closespider_pagecount',\n 'finish_time': datetime.datetime(2022, 9, 11, 22, 17, 28, 767273),\n 'httpcompression/response_bytes': 925728,\n 'httpcompression/response_count': 2,\n 'log_count/DEBUG': 3,\n 'log_count/INFO': 10,\n 'memusage/max': 66080768,\n 'memusage/startup': 66080768,\n 'request_depth_max': 2,\n 'response_received_count': 2,\n 'scheduler/dequeued': 2,\n 'scheduler/dequeued/memory': 2,\n 'scheduler/enqueued': 3,\n 'scheduler/enqueued/memory': 3,\n 'start_time': datetime.datetime(2022, 9, 11, 22, 17, 27, 262707)}\n2022-09-11 23:17:28 [scrapy.core.engine] INFO: Spider closed (closespider_pagecount)\n",
+    "first_log_time": "2022-09-11 23:17:27",
+    "latest_log_time": "2022-09-11 23:17:28",
+    "runtime": "0:00:01",
+    "first_log_timestamp": 1662934647,
+    "latest_log_timestamp": 1662934648,
+    "datas": [
+        [
+            "2022-09-11 23:17:27",
+            0,
+            0,
+            0,
+            0
+        ]
+    ],
+    "pages": 2,
+    "items": 0,
+    "latest_matches": {
+        "scrapy_version": "2.6.2",
+        "telnet_console": "127.0.0.1:6023",
+        "telnet_username": "",
+        "telnet_password": "314ee78f35cebf2a",
+        "resuming_crawl": "",
+        "latest_offsite": "",
+        "latest_duplicate": "",
+        "latest_crawl": "2022-09-11 23:17:28 [scrapy.core.engine] DEBUG: Crawled (200) <POST https://www.youtube.com/youtubei/v1/next> (referer: https://www.youtube.com/youtubei/v1/next)",
+        "latest_scrape": "",
+        "latest_item": "",
+        "latest_stat": "2022-09-11 23:17:27 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)"
+    },
+    "latest_crawl_timestamp": 1662934648,
+    "latest_scrape_timestamp": 0,
+    "log_categories": {
+        "critical_logs": {
+            "count": 0,
+            "details": []
+        },
+        "error_logs": {
+            "count": 0,
+            "details": []
+        },
+        "warning_logs": {
+            "count": 0,
+            "details": []
+        },
+        "redirect_logs": {
+            "count": 0,
+            "details": []
+        },
+        "retry_logs": {
+            "count": 0,
+            "details": []
+        },
+        "ignore_logs": {
+            "count": 0,
+            "details": []
+        }
+    },
+    "shutdown_reason": "N/A",
+    "finish_reason": "closespider_pagecount",
+    "crawler_stats": {
+        "source": "log",
+        "last_update_time": "2022-09-11 23:17:28",
+        "last_update_timestamp": 1662934648,
+        "downloader/request_bytes": 2421,
+        "downloader/request_count": 2,
+        "downloader/request_method_count/POST": 2,
+        "downloader/response_bytes": 64582,
+        "downloader/response_count": 2,
+        "downloader/response_status_count/200": 2,
+        "elapsed_time_seconds": 1.504566,
+        "finish_reason": "closespider_pagecount",
+        "finish_time": "datetime.datetime(2022, 9, 11, 22, 17, 28, 767273)",
+        "httpcompression/response_bytes": 925728,
+        "httpcompression/response_count": 2,
+        "log_count/DEBUG": 3,
+        "log_count/INFO": 10,
+        "memusage/max": 66080768,
+        "memusage/startup": 66080768,
+        "request_depth_max": 2,
+        "response_received_count": 2,
+        "scheduler/dequeued": 2,
+        "scheduler/dequeued/memory": 2,
+        "scheduler/enqueued": 3,
+        "scheduler/enqueued/memory": 3,
+        "start_time": "datetime.datetime(2022, 9, 11, 22, 17, 27, 262707)"
+    },
+    "last_update_time": "2022-09-12 12:30:07",
+    "last_update_timestamp": 1662982207,
+    "logparser_version": "0.8.2",
+    "crawler_engine": {}
+}
