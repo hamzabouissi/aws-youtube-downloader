@@ -1,1 +1,10 @@
 env
+.idea
+.mypy_cache
+.vscode
+**/__pycache__/**
+.env
+
+**/package/**
+**/python/**
+logs/default/**

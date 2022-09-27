@@ -14,7 +14,7 @@ import pymongo
 from crawler.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SUBTITLES_BUCKET_NAME
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
-
+import redis
 
 
 
@@ -162,4 +162,74 @@ class ElasticSearchPipeline:
         if not index:
             self.client.indices.create(index=index_id)    
         bulk(self.client, self.gendata(index_id, item['video_id'], data))
+        return item
+class SQSPipeline:
+    client: boto3
+
+
+    def __init__(self, aws_access_key_id:str, aws_secret_access_key:str,queue:str):
+        self.aws_access_key_id = aws_access_key_id
+        self.aws_secret_access_key = aws_secret_access_key
+        self.queue = queue
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            aws_access_key_id=crawler.settings.get('AWS_ACCESS_KEY_ID'),
+            aws_secret_access_key=crawler.settings.get('AWS_SECRET_ACCESS_KEY'),
+            queue=crawler.settings.get('SQS_NAME')
+        )
+
+    def open_spider(self, spider):
+        self.client = boto3.client("sqs",aws_access_key_id=self.aws_access_key_id,aws_secret_access_key=self.aws_secret_access_key)
+
+
+    def close_spider(self, spider):
+       self.client.close()
+
+    
+
+    def process_item(self, item, spider):
+        data = {
+            "video_id": item['video_id'],
+            "parent_video_id": item['parent_video_id'],
+            # "subtitles":f"https://{SUBTITLES_BUCKET_NAME}.s3.amazonaws.com/{item['video_id']}"
+        }
+        data = json.dumps(data)
+        self.client.send_message(
+            QueueUrl=self.queue,
+            MessageBody=data
+        )
+        return item
+
+class RedisPipeline:
+    def __init__(self, redis_host):
+        self.redis_host = redis_host
+        self.client = None
+
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            redis_host=crawler.settings.get('REDIS_HOST'),
+        )
+
+    def open_spider(self, spider):
+        self.client = redis.Redis(host=self.redis_host, port=6379, db=0)
+
+       
+
+    def close_spider(self, spider):
+        self.client.close()
+
+    
+    def process_item(self, item, spider):
+        data = {
+            "video_id": item['video_id'],
+            "parent_video_id": item['parent_video_id'],
+            # "subtitles":f"https://{SUBTITLES_BUCKET_NAME}.s3.amazonaws.com/{item['video_id']}"
+        }
+        data = json.dumps(data)
+        self.client.publish("videos",data)
+        # self.client.set(item['video_id'], data)
         return item

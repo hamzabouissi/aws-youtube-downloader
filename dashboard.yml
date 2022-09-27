@@ -1,31 +1,67 @@
 version: '3.3'
 services:
-  master:
-    image: crawlabteam/crawlab
-    container_name: crawlab_master
-    restart: always
-    environment:
-      CRAWLAB_NODE_MASTER: "Y"  # Y: master node
-      CRAWLAB_MONGO_HOST: "mongo"  # mongo host address. In the docker compose network, directly refer to the service name
-      CRAWLAB_MONGO_PORT: "27017"  # mongo port 
-      CRAWLAB_MONGO_DB: "crawlab"  # mongo database 
-      CRAWLAB_MONGO_USERNAME: "username"  # mongo username
-      CRAWLAB_MONGO_PASSWORD: "password"  # mongo password 
-      CRAWLAB_MONGO_AUTHSOURCE: "admin"  # mongo auth source 
-    volumes:
-      - "/opt/crawlab/master:/data"  # persistent crawlab data
+  scrapydaemon:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8080:8080"  # exposed api port
+      - "6800:6800"  # exposed api port
+    entrypoint: /app/scripts/scrapydaemon.sh
+    env_file:
+      - .env
     depends_on:
       - mongo
+  
+  redis:
+    image: redis:6.2.6
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+   
 
   mongo:
-    image: mongo:latest
+    image: mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "username"  # mongo username
-      MONGO_INITDB_ROOT_PASSWORD: "password"  # mongo password
-    volumes:
-      - "/opt/crawlab/mongo/data/db:/data/db"  # persistent mongo data
+      MONGO_INITDB_ROOT_USERNAME: crawler
+      MONGO_INITDB_ROOT_PASSWORD: youtube_videos
     ports:
-      - "27017:27017"  # expose mongo port to host machine
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://crawler:youtube_videos@mongo:27017/
+  
+  # logparser:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   entrypoint: /app/scripts/logparser.sh
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - mongo
+  #     - scrapydaemon
+    
+
+  # scrapydweb:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:5000"  # exposed api port
+  #   entrypoint: /app/scripts/scrapyweb.sh
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - mongo
+  #     - scrapydaemon

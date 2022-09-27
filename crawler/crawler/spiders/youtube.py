@@ -1,11 +1,5 @@
-from gc import callbacks
-import json
-from time import sleep, time
 import scrapy
-from scrapy.http import JsonRequest,Request
-from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api.formatters import JSONFormatter
-from youtube_transcript_api._errors import NoTranscriptFound
+from scrapy.http import JsonRequest
 from crawler.items import Subtitle
 
 class YoutubeSpider(scrapy.Spider):
@@ -37,59 +31,43 @@ class YoutubeSpider(scrapy.Spider):
     def parse(self, response):
         data = response.json()
         suggestions = data['contents']['twoColumnWatchNextResults']['secondaryResults']['secondaryResults']['results']
-        current_video_id = data['currentVideoEndpoint']['watchEndpoint']['videoId']
+        parent_video_id = data['currentVideoEndpoint']['watchEndpoint']['videoId']
         videos=[]
         for suggest in suggestions:
             if compact_video := suggest.get("compactVideoRenderer",None):
                 if (videoId:=compact_video.get('videoId')) is not None:
                     videos.append(videoId)
-                    yield from self._get_subtitles(videoId,current_video_id)
-                    
-        for video_id in videos:
-            print("crawling sub videos")
-            yield JsonRequest(url=self.start_urls[0],callback=self.parse, data=self.get_payload(video_id))
-            # elif not (suggest.get("continuationItemRenderer") is None):
-            #     command_token = suggest['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
-            #     payload = self.get_payload(current_video_id)
-            #     payload['continuation'] = command_token['token']
-                # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True)
-
-    def _get_next_suggest_videos(self, response):
-        request = json.loads(response.request.body.decode("utf-8"))
-        current_video_id = request['videoId']
-        data = response.json()
-        videos = data['onResponseReceivedEndpoints'][0]['appendContinuationItemsAction']['continuationItems']
-        
-        for video in videos:
-            if compact_video := video.get("compactVideoRenderer",None):
-                if (videoId:=compact_video.get('videoId')) is not None:
-                    yield from self._get_subtitles(videoId,current_video_id)
-            
-            elif not (video.get("continuationItemRenderer") is None):
-                command_token = video['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
-                payload = self.get_payload(current_video_id)
-                payload['continuation'] = command_token['token']
-                # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
-
-
-
-    def _get_subtitles(self,videoId,parent_video_id):
-        # print(video)
-        try:
-            subtitles = YouTubeTranscriptApi.list_transcripts(videoId)
-            for lang in self.desirable_languages:
-                try:
-                    transcript = subtitles.find_manually_created_transcript([lang])
-                    item = Subtitle(
-                        language=lang,
-                        text=transcript.fetch(),
+                    yield Subtitle(
                         video_id=videoId,
                         parent_video_id=parent_video_id
                     )
-                    yield item
-                except NoTranscriptFound:
-                    continue
-                
-        except Exception as e:
-            print(e)
+        
+        yield from self.parse_videos(videos)
+            # elif not (suggest.get("continuationItemRenderer") is None):
+            #     command_token = suggest['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
+            #     payload = self.get_payload(parent_video_id)
+            #     payload['continuation'] = command_token['token']
+                # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True)
+
+    def parse_videos(self, videos):
+        for video_id in videos:
+            yield JsonRequest(url=self.start_urls[0],callback=self.parse, data=self.get_payload(video_id))
+
+    # def _get_next_suggest_videos(self, response):
+    #     request = json.loads(response.request.body.decode("utf-8"))
+    #     parent_video_id = request['videoId']
+    #     data = response.json()
+    #     videos = data['onResponseReceivedEndpoints'][0]['appendContinuationItemsAction']['continuationItems']
+        
+    #     for video in videos:
+    #         if compact_video := video.get("compactVideoRenderer",None):
+    #             if (videoId:=compact_video.get('videoId')) is not None:
+    #                 yield from self._get_subtitles(videoId,parent_video_id)
+            
+    #         elif not (video.get("continuationItemRenderer") is None):
+    #             command_token = video['continuationItemRenderer']['continuationEndpoint']['continuationCommand']
+    #             payload = self.get_payload(parent_video_id)
+    #             payload['continuation'] = command_token['token']
+    #             # yield JsonRequest(url=self.start_urls[0],callback=self._get_next_suggest_videos, data=payload,dont_filter=True) 
+
 
