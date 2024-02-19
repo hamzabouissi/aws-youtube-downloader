@@ -29,7 +29,7 @@ def handler(event, context):
         if not index:
             elastic_client.indices.create(index=index_id)    
         bulk(elastic_client, gendata(index_id, item['video_id'], data))
-    return item
+    return {"statusCode": 200}
     
 
 def gendata(index_id, videoId, data):

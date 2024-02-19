@@ -101,6 +101,27 @@ Resources:
       CompatibleRuntimes:
         - python3.9
 
+
+  CaptionGeneratorLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: youtubecrawlerfunction
+        S3Key: generate_captions.zip
+      Handler: generate_captions.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: python3.9
+      Timeout: 100
+      MemorySize: 512
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref FunctionSecurityGroup
+        SubnetIds: !Ref SubnetIds
+      Layers:
+        - !Ref libs
+      
+
+
   MongoLambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
@@ -143,12 +164,22 @@ Resources:
         Variables:
           ELASTIC_URI: !GetAtt ElasticInstance.PrivateIp
   
-  MongoLambdaFunctionEventSourceMapping:
+  CaptionGeneratorLambdaFunctionEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties:
       BatchSize: 10
       Enabled: true
       EventSourceArn: !GetAtt VideosQueue.Arn
+      FunctionName: !GetAtt CaptionGeneratorLambdaFunction.Arn
+
+
+
+  MongoLambdaFunctionEventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt SubtitlesQueue.Arn
       FunctionName: !GetAtt MongoLambdaFunction.Arn
 
     
@@ -335,56 +366,8 @@ Resources:
               - s3:HeadObject
               Resource: "*"
         
-        
 
-
-
-  CrawlerInstanceProfile:
-    Type: AWS::IAM::InstanceProfile
-    Properties: 
-      InstanceProfileName: crawler-instance-profile
-      Path: /
-      Roles: 
-       - !Ref CrawlerInstanceRole
   
-  CrawlerInstanceRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: crawler-instance-profile
-      AssumeRolePolicyDocument:
-        Version: 2008-10-17
-        Statement:
-          - Sid: ''
-            Effect: Allow
-            Principal:
-              Service: ecs.amazonaws.com
-            Action: 'sts:AssumeRole'
-      ManagedPolicyArns:
-        - 'arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole'
-      Policies:
-        - PolicyName: allowSqs
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-            - Effect: Allow
-              Action:
-              - sqs:SendMessage
-              - sqs:DeleteMessage
-              - sqs:GetQueueAttributes
-              - sqs:ChangeMessageVisibility
-              Resource: "*"
-        - PolicyName: allowEcr
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-            - Effect: Allow
-              Action:
-              - ecr:SendMessage
-              - sqs:DeleteMessage
-              - sqs:GetQueueAttributes
-              - sqs:ChangeMessageVisibility
-              Resource: "*"
-
   ElasticInstance:
     Type: AWS::EC2::Instance
     Properties:
@@ -464,6 +447,7 @@ Resources:
       InstanceType: t2.micro
       SecurityGroupIds: 
         - !GetAtt BastionInstanceSecurityGroup.GroupId
+        - Fn::ImportValue: 'pengguin-test-EnvironmentSecurityGroup'
       KeyName: !Ref 'BastionKeyName'
       ImageId: !Ref 'LatestAmiId'
       SubnetId: !Select [0, !Ref PublicSubnetIds ]
@@ -476,7 +460,5 @@ Outputs:
     Value: !GetAtt KibanaInstance.PrivateIp
   MongoPrivateIp:
     Value: !GetAtt MongoInstance.PrivateIp
-  CrawlerPrivateIp:
-    Value: !GetAtt CrawlerECS.PrivateIp
   BastionPublicIp:
     Value: !GetAtt BastionInstance.PublicIp
